@@ -1,12 +1,14 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { ProductInfo } from '../product/ProductInfo';
+import AddToCartForm from '../../components/AddToCartForm';
 import '../product/description.css';
 import type { Product } from '../../types';
 
 const slug = Astro.params.slug;
 const response = await fetch(`http://localhost:3000/api/products/${slug}`);
 const data: Product = await response.json();
+const item = {id: data.id}
 ---
 
 <html lang="es">
@@ -189,7 +191,9 @@ const data: Product = await response.json();
           </label> -->
             </div>
 
-            <h2 class="mt-8 text-base font-medium text-gray-900">Especificaciones</h2>
+            <h2 class="mt-8 text-base font-medium text-gray-900">
+              Especificaciones
+            </h2>
             <div class="relative overflow-x-auto">
               <table
                 class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
@@ -264,9 +268,10 @@ const data: Product = await response.json();
                 </h1>
                 <span class="text-base">{data.currency}</span>
               </div>
-
+              <AddToCartForm item={item} client:load>
               <button
-                type="button"
+                type="submit"
+                id="alert"
                 class="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-8 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800 lg:ml-6"
               >
                 <svg
@@ -284,6 +289,7 @@ const data: Product = await response.json();
                 </svg>
                 A&ntildeadir al carrito
               </button>
+            </AddToCartForm>
             </div>
 
             <ul class="mt-8 space-y-2">
@@ -328,7 +334,12 @@ const data: Product = await response.json();
               </li>
             </ul>
           </div>
-          <ProductInfo description={data.description} manual={data.manual} brochure={data.brochure} client:visible />
+          <ProductInfo
+            description={data.description}
+            manual={data.manual}
+            brochure={data.brochure}
+            client:visible
+          />
         </div>
       </div>
     </section>

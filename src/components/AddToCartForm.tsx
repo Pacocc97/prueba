@@ -1,22 +1,16 @@
-import { addCartItem, isCartOpen } from '../cartStore';
 import type { JSX } from 'solid-js/jsx-runtime';
+import { ItemDisplayInfo, addCartItem } from '../cartStore';
 
-export default function AddToCartForm({
-  children,
-}: {
-  children?: JSX.Element;
-}) {
-  // we'll hardcode the item info for simplicity!
-  const hardcodedItemInfo = {
-    id: 'astronaut-figurine',
-    name: 'Astronaut Figurine',
-    imageSrc: '/images/astronaut-figurine.png',
-  };
+type Props = {
+  item: ItemDisplayInfo;
+  children: JSX.Element;
+};
 
-  function addToCart(e: { preventDefault: () => void }) {
+export default function AddToCartForm({ children, item }: Props) {
+  // we'll hardcode the item info for simplicity!S
+  function addToCart(e: SubmitEvent) {
     e.preventDefault();
-    isCartOpen.set(true);
-    addCartItem(hardcodedItemInfo);
+    addCartItem(item);
   }
 
   return <form onSubmit={addToCart}>{children}</form>;

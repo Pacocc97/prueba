@@ -1,17 +1,15 @@
+import { useStore } from '@nanostores/solid';
 import { createSignal } from 'solid-js';
+import { counter, increase, isCartOpen } from '../cartStore';
 
 export default function Counter() {
-  const [count, setCount] = createSignal(0);
-  const add = () => setCount(count() + 1);
-  const subtract = () => setCount(count() - 1);
+  const count = useStore(counter);
+  const $isCartOpen = useStore(isCartOpen);
 
   return (
     <>
-      <div class="counter">
-        <button onClick={subtract}>-</button>
-        <pre>{count()}</pre>
-        <button onClick={add}>+</button>
-      </div>
+      <h1>{count()} around here ...</h1>
+      <button onClick={increase}>one up</button>
     </>
   );
 }
