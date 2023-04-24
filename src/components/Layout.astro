@@ -1,0 +1,29 @@
+---
+import { isCartOpen } from "../cartStore";
+import AddToCartForm from "./AddToCartForm";
+import CartFlyout from "./CartFlyout";
+import CartFlyoutToggle from "./CartFlyoutToggle";
+import NavBar from "./NavBar.astro";
+console.log(isCartOpen)
+---
+<head>
+  <meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+</head>
+<body>
+  <div class="mx-auto">
+    <header>
+      <NavBar />
+      <CartFlyoutToggle client:load />
+    </header>
+    <main class="mx-auto max-w-7xl">
+        <AddToCartForm client:load>
+        <slot />
+        <CartFlyout client:load />
+      </AddToCartForm>
+      </main>
+  </div>
+  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+</body>
