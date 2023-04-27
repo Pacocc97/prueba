@@ -1,7 +1,6 @@
 ---
+import Footer from "./Footer.astro";
 import NavBar from "./NavBar";
-import Counter from "./counter";
-
 ---
 <head>
   <meta charset="utf-8" />
@@ -13,11 +12,11 @@ import Counter from "./counter";
   <div class="mx-auto">
     <header>
       <NavBar client:load />
-      <Counter client:load />
     </header>
     <div class="mx-auto max-w-7xl">
       <slot />
     </div>
-  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <Footer />
   </div>
+  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 </body>
