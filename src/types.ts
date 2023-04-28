@@ -133,4 +133,5 @@ export type ProductCategory = {
   name: string;
   characteristics: any | null;
   parentId: string | null;
+  Product: Product;
 };

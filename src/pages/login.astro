@@ -1,16 +1,13 @@
 ---
+import Layout from "../components/Layout.astro";
 import Login from "./Login";
 
 ---
 
-<html>
-  <head>
-
-  </head>
   <body>
-    <main>
-      Hola
+	<Layout title="Login" description='Inicio de sesión'>
+    <main class="mt-10">
       <Login client:load/>
     </main>
+  </Layout>
   </body>
-</html>

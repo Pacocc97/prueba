@@ -1,22 +1,25 @@
 ---
+import BaseHead from "./BaseHead.astro";
 import Footer from "./Footer.astro";
 import NavBar from "./NavBar";
+
+const {
+   title, description 
+} = Astro.props
 ---
+
+<html lang="es">
 <head>
-  <meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
+  <BaseHead title={title} description={description} />
 </head>
-<body>
-  <div class="mx-auto">
+<body class="mx-auto flex flex-col h-screen">
     <header>
       <NavBar client:load />
     </header>
-    <div class="mx-auto max-w-7xl">
+    <main class="mx-auto max-w-7xl mb-24">
       <slot />
-    </div>
+    </main>
     <Footer />
-  </div>
   <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 </body>
+</html>

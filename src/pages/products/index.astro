@@ -7,7 +7,7 @@ const response = await fetch('http://localhost:3000/api/products');
 const products: Product[] = await response?.json();
 ---
 
-<Layout>
+<Layout title="Productos" description='Lista de todos los productos'>
   <div class="bg-white">
     <div>
       <div class="relative z-40 lg:hidden" role="dialog" aria-modal="true">

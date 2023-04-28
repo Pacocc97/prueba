@@ -1,14 +1,14 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { ProductInfo } from '../product/ProductInfo';
-import AddToCartForm from '../../components/AddToCartForm';
+// import AddToCartForm from '../../components/AddToCartForm';
 import '../product/description.css';
 import type { Product } from '../../types';
+import { Images } from '../../components/Images';
 
 const slug = Astro.params.slug;
 const response = await fetch(`http://localhost:3000/api/products/${slug}`);
 const data: Product = await response.json();
-const item = {slug: data.slug}
 ---
 
 <html lang="es">
@@ -18,10 +18,37 @@ const item = {slug: data.slug}
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
   </head>
-  <Layout>
+  <Layout title={data.name} description='Página de inicio'>
+    <div class="border-b border-gray-200">
+      <nav aria-label="Breadcrumb" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <ol role="list" class="flex items-center space-x-4 py-4">
+          <li>
+            <div class="flex items-center">
+              <a href="/" class="mr-4 text-sm font-medium text-gray-900">Inicio</a>
+              <svg viewBox="0 0 6 20" aria-hidden="true" class="h-5 w-auto text-gray-300">
+                <path d="M4.878 4.34H3.551L.27 16.532h1.327l3.281-12.19z" fill="currentColor" />
+              </svg>
+            </div>
+          </li>
+          
+          <li>
+            <div class="flex items-center">
+              <a href="/products" class="mr-4 text-sm font-medium text-gray-900">Productos</a>
+              <svg viewBox="0 0 6 20" aria-hidden="true" class="h-5 w-auto text-gray-300">
+                <path d="M4.878 4.34H3.551L.27 16.532h1.327l3.281-12.19z" fill="currentColor" />
+              </svg>
+            </div>
+          </li>
+
+          <li class="text-sm">
+            <span  aria-current="page" class="font-medium cursor-pointer text-gray-500 hover:text-gray-600">{data.name}</span>
+          </li>
+        </ol>
+      </nav>
+    </div>
     <section class="pb-6 sm:pb-8">
-      <div class="border-b border-gray-200">
-        <nav aria-label="Breadcrumb" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div>
+        <!-- <nav aria-label="Breadcrumb" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <ol role="list" class="flex items-center space-x-4 py-4">
             <li>
               <div class="flex items-center">
@@ -43,66 +70,13 @@ const item = {slug: data.slug}
               <span  aria-current="page" class="font-medium cursor-pointer text-gray-500 hover:text-gray-600">{data.name}</span>
             </li>
           </ol>
-        </nav>
+        </nav> -->
 
         <div
           class="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16"
         >
           <div class="lg:col-span-3 lg:row-end-1">
-            <div class="lg:flex lg:items-start">
-              <div class="lg:order-2 lg:ml-5">
-                <div class="max-w-xl overflow-hidden rounded-lg">
-                  <img
-                    class="h-full w-full max-w-full object-cover"
-                    src={`https://d26xfdx1w8q2y3.cloudfront.net/${data.image.path}/${data.image.original}`}
-                    alt=""
-                  />
-                </div>
-              </div>
-
-              <div class="mt-2 w-full lg:order-1 lg:w-32 lg:flex-shrink-0">
-                <div class="flex flex-row items-start lg:flex-col">
-                  <button
-                    type="button"
-                    class="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-transparent text-center"
-                  >
-                    <img
-                      class="h-full w-full object-cover"
-                      src={`https://d26xfdx1w8q2y3.cloudfront.net/${data.image.path}/${data.image.original}`}
-                      alt=""
-                    />
-                  </button>
-                  {
-                    data.ImagesExtra.map((image) => (
-                      <button
-                        type="button"
-                        class="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-gray-900 text-center"
-                      >
-                        <img
-                          class="h-full w-full object-cover"
-                          src={`https://d26xfdx1w8q2y3.cloudfront.net/${image.image.path}/${image.image.original}`}
-                          alt=""
-                        />
-                      </button>
-                    ))
-                  }
-                  {
-                    data.Gif && (
-                      <button
-                        type="button"
-                        class="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-transparent text-center"
-                      >
-                        <img
-                          class="h-full w-full object-cover"
-                          src={`https://d26xfdx1w8q2y3.cloudfront.net/${data.Gif.path}/${data.Gif.original}`}
-                          alt=""
-                        />
-                      </button>
-                    )
-                  }
-                </div>
-              </div>
-            </div>
+            <Images client:load data={data} />
           </div>
 
           <div class="lg:col-span-2 lg:row-span-2 lg:row-end-2">
@@ -248,7 +222,7 @@ const item = {slug: data.slug}
                 </h1>
                 <span class="text-base">{data.currency}</span>
               </div>
-              <AddToCartForm item={item} client:load>
+              <!-- <AddToCartForm item={item} client:load> -->
               <button
                 type="submit"
                 id="alert"
@@ -269,7 +243,7 @@ const item = {slug: data.slug}
                 </svg>
                 A&ntildeadir al carrito
               </button>
-            </AddToCartForm>
+            <!-- </AddToCartForm> -->
             </div>
 
             <ul class="mt-8 space-y-2">
